@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>RootRise | Smart Irrigation</title>
+<style>
+:root{--bg:#08120f;--panel:#101f19;--panel2:#142820;--line:#254537;--green:#9be15d;--mint:#44d7a8;--text:#ecf7ef;--muted:#9bb5a5;--amber:#ffc66d;--red:#ff7777}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 10% 0%,#173b2a 0,transparent 38%),var(--bg);color:var(--text);font:15px/1.5 Inter,system-ui,Segoe UI,Arial,sans-serif}
+.wrap{max-width:1200px;margin:auto;padding:24px}.top{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}.brand{display:flex;align-items:center;gap:12px}.logo{width:48px;height:48px;border-radius:15px;background:linear-gradient(135deg,var(--green),var(--mint));display:grid;place-items:center;color:#082017;font-size:26px;font-weight:900}.brand h1{font-size:23px;line-height:1;margin:0}.brand small{color:var(--muted);letter-spacing:2px;font-size:10px}.status{display:flex;gap:8px;align-items:center;color:var(--muted);font-size:13px}.dot{width:9px;height:9px;border-radius:50%;background:#73877a}.dot.on{background:var(--mint);box-shadow:0 0 12px #44d7a888}
+.hero{margin:28px 0 22px;padding:28px;border:1px solid var(--line);border-radius:24px;background:linear-gradient(115deg,#183b2b,#10231b 65%);display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}.eyebrow{color:var(--green);font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase}.hero h2{font-size:clamp(27px,4vw,43px);line-height:1.08;max-width:650px;margin:9px 0}.hero p{color:var(--muted);max-width:650px;margin:10px 0 0}.hero-mark{font-size:76px;filter:drop-shadow(0 0 20px #9be15d22)}
+.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}.card{background:linear-gradient(145deg,var(--panel2),var(--panel));border:1px solid var(--line);border-radius:20px;padding:20px;min-width:0}.span-3{grid-column:span 3}.span-4{grid-column:span 4}.span-5{grid-column:span 5}.span-7{grid-column:span 7}.span-8{grid-column:span 8}.span-12{grid-column:span 12}.cardhead{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:16px}.card h3{font-size:14px;margin:0;font-weight:750}.muted{color:var(--muted)}.value{font-size:35px;font-weight:750;letter-spacing:-1px;margin:5px 0}.unit{font-size:14px;color:var(--muted);font-weight:500}.mini{font-size:12px;color:var(--muted)}.icon{width:38px;height:38px;border-radius:12px;background:#254333;display:grid;place-items:center;font-size:19px}.metric{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}.pill{font-size:11px;border:1px solid var(--line);border-radius:999px;padding:5px 9px;color:var(--muted);white-space:nowrap}.pill.good{color:var(--mint);border-color:#2c6b54}.pill.warn{color:var(--amber);border-color:#765a2c}.pill.bad{color:var(--red);border-color:#713b3b}
+.bar{height:8px;background:#243a2f;border-radius:20px;overflow:hidden;margin:13px 0 8px}.bar span{height:100%;display:block;width:0;background:linear-gradient(90deg,var(--mint),var(--green));border-radius:20px;transition:width .3s}
+button,select,input{font:inherit}button{border:0;cursor:pointer;font-weight:750;border-radius:12px;padding:11px 15px;transition:transform .15s,opacity .15s}button:hover{transform:translateY(-1px)}button:disabled{opacity:.4;cursor:not-allowed;transform:none}.primary{background:var(--green);color:#0b1b12}.secondary{background:#213d2f;color:var(--text);border:1px solid #345844}.danger{background:#4a2425;color:#ffb5b5;border:1px solid #754043}.controls{display:flex;gap:9px;flex-wrap:wrap}.field{display:flex;flex-direction:column;gap:7px;margin:12px 0}.field label{font-size:12px;color:var(--muted)}select,input{background:#0b1812;border:1px solid var(--line);color:var(--text);border-radius:10px;padding:11px;width:100%;outline:none}.fieldrow{display:grid;grid-template-columns:1fr 1fr;gap:12px}.divider{height:1px;background:var(--line);margin:17px 0}.map{width:100%;height:240px;border:0;border-radius:14px;background:#dce7dd}.mapnote{font-size:11px;color:var(--muted);margin-top:8px}.log{height:150px;overflow:auto;background:#08130e;border:1px solid var(--line);border-radius:12px;padding:12px;font:12px/1.6 ui-monospace,monospace;color:#b9d8c3;white-space:pre-wrap;overflow-wrap:anywhere}.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:11px;color:var(--muted)}.legend span:before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--mint);margin-right:6px}.legend span:nth-child(2):before{background:var(--amber)}.legend span:nth-child(3):before{background:var(--red)}footer{padding:24px 0 10px;text-align:center;color:#6f8d7b;font-size:12px}.notice{background:#302819;border:1px solid #70552b;color:#ffdda0;border-radius:12px;padding:12px;font-size:12px;margin-top:12px}
+@media(max-width:850px){.span-3,.span-4,.span-5,.span-7,.span-8{grid-column:span 6}.hero-mark{display:none}}
+@media(max-width:560px){.wrap{padding:14px}.span-3,.span-4,.span-5,.span-7,.span-8,.span-12{grid-column:span 12}.hero{padding:22px}.value{font-size:31px}.fieldrow{grid-template-columns:1fr}}
+
+/* Added presentation sections: automation + crop water recommendation */
+.recommendation-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:16px}
+.recommendation-card{background:linear-gradient(145deg,#19332f,#101f20);border:1px solid #31534f;border-radius:24px;padding:24px;min-width:0}
+.section-title{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:20px 0 18px}
+.section-title h3{font-size:22px;margin:0}
+.status-tag{font-size:12px;padding:7px 12px;border-radius:999px;background:#3a3020;color:#e9c78c;white-space:nowrap}
+.automation-row{display:flex;justify-content:space-between;align-items:center;gap:16px}
+.automation-row h4{font-size:19px;margin:0 0 6px}
+.automation-row p{margin:0;color:var(--muted);font-size:14px}
+.toggle{position:relative;display:inline-block;width:58px;height:32px;flex-shrink:0}
+.toggle input{opacity:0;width:0;height:0}
+.toggle-track{position:absolute;inset:0;border-radius:99px;background:#293b3e;border:1px solid #3c5556;cursor:pointer;transition:.2s}
+.toggle-track:before{content:"";position:absolute;width:24px;height:24px;left:4px;top:3px;border-radius:50%;background:#9ba5a2;transition:.2s}
+.toggle input:checked + .toggle-track{background:#176b54;border-color:#3aa88a}
+.toggle input:checked + .toggle-track:before{transform:translateX(25px);background:#a5f0d4}
+.recommendation-card .field label{font-size:14px}
+.recommendation-card select{padding:16px 14px;border-radius:16px;background:#0b1a1d;border-color:#2d4548;font-size:16px}
+.water-estimate{margin-top:20px;padding:22px;border:1px solid #426c66;border-radius:22px;background:linear-gradient(130deg,#244844,#173330)}
+.water-estimate .estimate-label{color:#a7c5bb;font-size:14px}
+.water-estimate .estimate-value{font-size:42px;font-weight:800;line-height:1.2;color:#b7f0d7;letter-spacing:-1px}
+.water-estimate .estimate-value small{font-size:16px;letter-spacing:0;color:#c0d5ce}
+.water-estimate p{font-size:13px;color:#b3c8c0;margin:12px 0 0}
+.data-status-note{margin-top:16px;padding:14px 16px;border:1px solid #263f40;border-radius:16px;background:#101f20;color:#afc4bd;font-size:13px}
+@media(max-width:700px){.recommendation-grid{grid-template-columns:minmax(0,1fr)}.recommendation-card{padding:18px}.section-title h3{font-size:19px}.water-estimate .estimate-value{font-size:36px}}
+
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top">
+ <div class="brand"><div class="logo">R</div><div><h1>RootRise</h1><small>PRECISION IRRIGATION SYSTEM</small></div></div>
+ <div class="status"><span id="connDot" class="dot"></span><span id="connText">Device disconnected</span><span class="pill">ESP32 • Live dashboard</span></div>
+</header>
+<section class="hero">
+ <div><div class="eyebrow">Sense · Decide · Irrigate</div><h2>Every drop, right where it’s needed.</h2><p>Monitor field conditions, review your sensor readings, and operate the irrigation pump from one simple control panel.</p></div>
+ <div class="hero-mark">🌱</div>
+</section>
+<div class="grid">
+ <section class="card span-3"><div class="metric"><div><div class="muted">Air temperature</div><div class="value"><span id="temp">--</span><span class="unit"> °C</span></div><div class="mini">DHT sensor · GPIO 15</div></div><div class="icon">🌡️</div></div></section>
+ <section class="card span-3"><div class="metric"><div><div class="muted">Air humidity</div><div class="value"><span id="hum">--</span><span class="unit"> %</span></div><div class="mini">Relative humidity</div></div><div class="icon">💧</div></div><div class="bar"><span id="humBar"></span></div></section>
+ <section class="card span-3"><div class="metric"><div><div class="muted">Pump status</div><div class="value" id="pumpState" style="font-size:27px">OFF</div><div class="mini" id="pumpSub">Waiting for device</div></div><div class="icon">🚿</div></div><div class="bar"><span id="pumpBar"></span></div></section>
+ <section class="card span-3"><div class="metric"><div><div class="muted">Run timer</div><div class="value"><span id="timer">--</span><span class="unit"> sec</span></div><div class="mini">Firmware safety timer</div></div><div class="icon">⏱️</div></div></section>
+
+ <section class="card span-7">
+  <div class="cardhead"><h3>IRRIGATION CONTROL</h3><span class="pill" id="controlBadge">Manual mode</span></div>
+  <p class="muted" style="margin-top:-5px;font-size:13px">Connect to your ESP32, then operate the pump. Timed runs are recommended for safer testing.</p>
+  <div class="fieldrow">
+   <div class="field"><label for="runSeconds">Timed watering duration</label><select id="runSeconds"><option value="5">5 seconds</option><option value="10" selected>10 seconds</option><option value="30">30 seconds</option><option value="60">1 minute</option><option value="120">2 minutes</option><option value="300">5 minutes</option><option value="600">10 minutes</option></select></div>
+   <div class="field"><label for="threshold">Soil moisture threshold (UI only)</label><input id="threshold" type="number" min="0" max="100" value="35"><span class="mini">For future soil-sensor integration</span></div>
+  </div>
+  <div class="controls"><button class="primary" id="runBtn" disabled>▶ Run timed watering</button><button class="secondary" id="onBtn" disabled>Turn pump ON</button><button class="danger" id="offBtn" disabled>■ Stop pump</button><button class="secondary" id="getBtn" disabled>↻ Refresh readings</button></div>
+  <div class="notice">Safety: test with the pump power disconnected first. Use a suitable MOSFET/driver, common ground, and a flyback diode. The web dashboard cannot guarantee a physical pump is off if the device loses power.</div>
+ </section>
+ <section class="card span-5">
+  <div class="cardhead"><h3>DEVICE CONNECTION</h3><span class="pill" id="linkType">No link</span></div>
+  <div class="controls"><button class="primary" id="bleBtn">Connect Bluetooth LE</button><button class="secondary" id="serialBtn">Connect USB Serial</button><button class="secondary" id="disconnectBtn" disabled>Disconnect</button></div>
+  <div class="mini" style="margin-top:13px">USB Serial works in Chromium browsers on a supported computer. Bluetooth LE requires BLE UART firmware; your uploaded RootRiseBT sketch uses Bluetooth Classic SPP, which normal webpages cannot access directly.</div>
+  <div class="divider"></div>
+  <div class="mini">Expected device name: <b>RootRise-ESP32</b></div>
+  <div class="mini">Protocol: <code>DATA,temp,humidity,pump,seconds</code></div>
+ </section>
+ <section class="card span-5">
+  <div class="cardhead"><h3>FIELD LOCATION</h3><span class="pill">Map</span></div>
+  <iframe class="map" title="Sharda University map" loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=77.475%2C28.445%2C77.535%2C28.485&layer=mapnik&marker=28.463%2C77.509"></iframe>
+  <div class="mapnote">Map centered on Sharda University, Greater Noida. This is a project/demo location, not live GPS from the ESP32.</div>
+  <p><a href="https://www.openstreetmap.org/?mlat=28.463&mlon=77.509#map=15/28.463/77.509" target="_blank" rel="noopener" style="color:var(--green)">Open interactive map ↗</a></p>
+ </section>
+ <section class="card span-7">
+  <div class="cardhead"><h3>LIVE SENSOR STREAM</h3><span class="pill" id="lastUpdate">No data yet</span></div>
+  <div class="legend"><span>Live link</span><span>Waiting for data</span><span>Disconnected</span></div>
+  <div class="divider"></div><div class="log" id="log">RootRise dashboard ready.
+Connect via BLE UART firmware or USB serial.
+Sensor values appear when a DATA line is received.</div>
+ </section>
+ 
+  <section class="card span-12">
+   <div class="section-title"><h3>Automation</h3><span class="status-tag" id="automationStatus">WAITING FOR DEVICE</span></div>
+   <div class="recommendation-card">
+    <div class="automation-row">
+     <div><h4>Smart watering</h4><p id="automationDescription">Automation will be available after an ESP32 controller is paired and its sensors are calibrated.</p></div>
+     <label class="toggle" aria-label="Smart watering unavailable until device is connected"><input id="smartWateringToggle" type="checkbox" disabled><span class="toggle-track"></span></label>
+    </div>
+   </div>
+   <p class="muted" style="margin:16px 4px 0;font-size:13px">Pump controls are unavailable until a real controller is connected. This prevents demo buttons from implying that a physical sprinkler is running.</p>
+  </section>
+
+  <section class="card span-12">
+   <div class="section-title"><h3>Water recommendation</h3><span class="muted" style="font-size:13px">Crop + area</span></div>
+   <div class="recommendation-card">
+    <div class="field"><label for="cropType">Crop type</label>
+     <select id="cropType">
+      <option value="3.4">Cucumber</option><option value="3.0">Tomato</option><option value="4.0">Rice</option><option value="2.5">Wheat</option><option value="3.2">Potato</option><option value="2.8">Onion</option><option value="3.6">Maize</option>
+     </select>
+    </div>
+    <div class="field"><label for="cropArea">Area (square metres)</label>
+     <select id="cropArea"><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100" selected>100</option><option value="250">250</option><option value="500">500</option><option value="1000">1,000</option></select>
+    </div>
+    <div class="water-estimate">
+     <div class="estimate-label">Estimated daily water requirement</div>
+     <div class="estimate-value"><span id="waterLitres">340</span> <small>litres / day</small></div>
+     <p>Illustrative estimate for the selected crop and area. Actual need varies with climate, soil, crop stage and rainfall; validate with local agricultural guidance.</p>
+    </div>
+   </div>
+   <div class="data-status-note">🌱 <b>Data status:</b> weather comes from an online forecast service when location is available. Soil moisture, sensor temperature, water use and automation depend on connected hardware and are not simulated live readings.</div>
+  </section>
+
+ <section class="card span-12">
+  <div class="cardhead"><h3>SMART IRRIGATION ROADMAP</h3><span class="pill">RootRise · Sustain-a-thon 2.0</span></div>
+  <div class="grid">
+   <div class="span-3"><b>01 · Sense</b><p class="mini">Soil moisture, temperature and humidity from field sensors.</p></div>
+   <div class="span-3"><b>02 · Decide</b><p class="mini">Combine soil condition, crop type, growth stage and weather.</p></div>
+   <div class="span-3"><b>03 · Irrigate</b><p class="mini">Run a pump/valve only for the required zone and duration.</p></div>
+   <div class="span-3"><b>04 · Improve</b><p class="mini">Add multiple zones, weather-aware recommendations and water-use tracking.</p></div>
+  </div>
+  <p class="mini">Current firmware reports DHT temperature/humidity and pump state. Soil moisture, crop profiles, weather API, and zone-wise valves are shown as future integrations—not simulated live readings.</p>
+ </section>
+</div>
+<footer>RootRise · Precision irrigation for smarter and sustainable agriculture</footer>
+</div>
+<script>
+const $=id=>document.getElementById(id);
+let writer=null, reader=null, port=null, bleDevice=null, bleServer=null, bleChar=null, rxBuffer='', connected=false, transport='';
+
+function log(msg){const box=$('log');const t=new Date().toLocaleTimeString();box.textContent+=`\n[${t}] ${msg}`;box.scrollTop=box.scrollHeight}
+function setConnection(on,label,type=''){connected=on;$('connDot').classList.toggle('on',on);$('connText').textContent=label;$('linkType').textContent=type||'No link';['runBtn','onBtn','offBtn','getBtn'].forEach(id=>$(id).disabled=!on);$('disconnectBtn').disabled=!on}
+function parseLine(line){
+ line=line.trim(); if(!line)return; log('RX  '+line);
+ if(line.startsWith('DATA,')){
+  const p=line.split(','); if(p.length>=4){
+   const t=parseFloat(p[1]),h=parseFloat(p[2]),pump=p[3]==='1',sec=parseInt(p[4]||'0',10)||0;
+   $('temp').textContent=Number.isFinite(t)?t.toFixed(1):'--';
+   $('hum').textContent=Number.isFinite(h)?h.toFixed(1):'--';
+   $('humBar').style.width=Number.isFinite(h)?Math.max(0,Math.min(100,h))+'%':'0%';
+   $('pumpState').textContent=pump?'ON':'OFF';$('pumpState').style.color=pump?'var(--mint)':'var(--text)';
+   $('pumpSub').textContent=pump?'Water delivery active':'Pump is stopped';$('pumpBar').style.width=pump?'100%':'0%';$('timer').textContent=sec;
+   $('lastUpdate').textContent='Updated '+new Date().toLocaleTimeString();
+  }
+ }else if(line.startsWith('ACK,')){log('Device: '+line.slice(4))}
+}
+function receiveText(text){rxBuffer+=text;let lines=rxBuffer.split(/\r?\n/);rxBuffer=lines.pop()||'';lines.forEach(parseLine)}
+async function sendCommand(cmd){
+ if(!connected){log('Not connected');return}
+ try{
+  const data=new TextEncoder().encode(cmd+'\n');
+  if(transport==='serial'&&writer) await writer.write(data);
+  else if(transport==='ble'&&bleChar){
+   // BLE UART characteristics commonly accept writes in chunks.
+   const max=20; for(let i=0;i<data.length;i+=max){const part=data.slice(i,i+max);if(bleChar.writeValueWithoutResponse)await bleChar.writeValueWithoutResponse(part);else await bleChar.writeValue(part)}
+  }
+  log('TX  '+cmd)
+ }catch(e){log('Send error: '+e.message)}
+}
+$('runBtn').onclick=()=>sendCommand('RUN,'+$('runSeconds').value);
+$('onBtn').onclick=()=>sendCommand('PUMP,1');
+$('offBtn').onclick=()=>sendCommand('PUMP,0');
+$('getBtn').onclick=()=>sendCommand('GET');
+
+$('serialBtn').onclick=async()=>{
+ if(!('serial' in navigator)){alert('Web Serial is not supported here. Use Chrome or Edge on desktop, or a supported Android setup.');return}
+ try{
+  port=await navigator.serial.requestPort();await port.open({baudRate:115200});transport='serial';
+  writer=port.writable.getWriter();setConnection(true,'USB serial connected','USB Serial');log('USB serial connected at 115200 baud.');
+  (async()=>{try{reader=port.readable.getReader();while(true){const {value,done}=await reader.read();if(done)break;if(value)receiveText(new TextDecoder().decode(value))}}catch(e){if(connected)log('Serial read ended: '+e.message)}})();
+ }catch(e){log('USB connection failed: '+e.message)}
+};
+const BLE_SERVICE='6e400001-b5a3-f393-e0a9-e50e24dcca9e';
+const BLE_RX='6e400002-b5a3-f393-e0a9-e50e24dcca9e';
+const BLE_TX='6e400003-b5a3-f393-e0a9-e50e24dcca9e';
+$('bleBtn').onclick=async()=>{
+ if(!navigator.bluetooth){alert('Web Bluetooth is not supported in this browser. Try Chrome/Edge over HTTPS. Also, this needs BLE UART firmware; Bluetooth Classic SPP is not supported by web pages.');return}
+ try{
+  bleDevice=await navigator.bluetooth.requestDevice({filters:[{services:[BLE_SERVICE]}]});
+  bleDevice.addEventListener('gattserverdisconnected',()=>{setConnection(false,'Bluetooth disconnected');log('Bluetooth disconnected')});
+  bleServer=await bleDevice.gatt.connect();const service=await bleServer.getPrimaryService(BLE_SERVICE);
+  bleChar=await service.getCharacteristic(BLE_RX);const tx=await service.getCharacteristic(BLE_TX);
+  await tx.startNotifications();tx.addEventListener('characteristicvaluechanged',e=>receiveText(new TextDecoder().decode(e.target.value)));
+  transport='ble';setConnection(true,'Bluetooth LE connected','Bluetooth LE');log('BLE UART connected.');
+ }catch(e){log('BLE connection failed: '+e.message)}
+};
+$('disconnectBtn').onclick=async()=>{
+ try{if(reader){await reader.cancel();reader.releaseLock();reader=null}if(writer){writer.releaseLock();writer=null}if(port){await port.close();port=null}if(bleDevice?.gatt?.connected)bleDevice.gatt.disconnect()}catch(e){log('Disconnect note: '+e.message)}
+ transport='';bleChar=null;setConnection(false,'Device disconnected');log('Disconnected')
+};
+window.addEventListener('beforeunload',()=>{try{if(bleDevice?.gatt?.connected)bleDevice.gatt.disconnect()}catch{}});
+
+function updateWaterRecommendation(){
+ const crop=document.getElementById('cropType');
+ const area=document.getElementById('cropArea');
+ const result=document.getElementById('waterLitres');
+ if(crop&&area&&result){
+   result.textContent=Math.round(Number(crop.value)*Number(area.value)).toLocaleString('en-IN');
+ }
+}
+document.getElementById('cropType')?.addEventListener('change',updateWaterRecommendation);
+document.getElementById('cropArea')?.addEventListener('change',updateWaterRecommendation);
+updateWaterRecommendation();
+
+</script>
+</body>
+</html>
